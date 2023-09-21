@@ -1,4 +1,4 @@
-- hosts: 172.31.33.68
+- hosts: apache
   become: True
   tasks:
     - name: install apache

@@ -1,0 +1,18 @@
+- hosts: 172.31.33.68
+  become: True
+  vars_files:
+    - apache-vars.yml
+  tasks:
+    - name: Change Port number
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regex: "^Listen "
+        insertafter: '^#Listen '
+        line: "Listen {{ apache_port }}"
+      notify:
+        - restart apache
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
